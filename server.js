@@ -29,9 +29,13 @@ if (process.env.NODE_ENV === "development") {
 // Routes
 const categoryRoutes = require("./routes/category");
 const subCategoryRoutes = require("./routes/subCategory");
+const brandRoutes = require("./routes/brand");
+const productRoutes = require("./routes/product");
 
 app.use("/api/v1/categories", categoryRoutes);
 app.use("/api/v1/subcategories", subCategoryRoutes);
+app.use("/api/v1/brands", brandRoutes);
+app.use("/api/v1/products", productRoutes);
 
 // Handling invalid routes
 app.use((req, res, next) => {

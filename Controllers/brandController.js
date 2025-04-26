@@ -1,47 +1,43 @@
 const AsyncHandler = require("express-async-handler");
-const subCategoryService = require("../Services/subCategoryService");
+const brandService = require("../Services/brandService");
 const responseWrapper = require("../utils/responseWrapper");
 const responseTypes = require("../utils/responseTypes");
 const ApiError = require("../utils/apiError");
 
-// @desc Create subCategory
-// @route POST /api/v1/subcategories
+// @desc Create Brand
+// @route POST /api/v1/brands
 // @access Private
-const createSubCategory = AsyncHandler(async (req, res, next) => {
+const createBrand = AsyncHandler(async (req, res, next) => {
   const { name } = req.body;
-  const { categoryId } = req.params;
-  await subCategoryService
-    .createSubCategory(name, categoryId)
+  await brandService
+    .createBrand(name)
     .then((result) =>
       responseWrapper(
         res,
         responseTypes.CREATED,
-        "Subcategory created successfully",
+        "Brand created successfully",
         result,
       ),
     )
     .catch((error) => {
-      const statusCode = error.code || 500;
-      console.log(statusCode);
-      const message = [400, 404].includes(statusCode)
-        ? error.message
-        : responseTypes.SERVER_ERROR.message;
-      console.log(message);
+      const statusCode = error.code || responseTypes.SERVER_ERROR.code;
+      const message =
+        statusCode === 400 ? error.message : responseTypes.SERVER_ERROR.message;
       return next(new ApiError(message, statusCode));
     });
 });
 
-// @desc Get list of subCategories
-// @route GET /api/v1/subcategories
+// @desc Get list of brands
+// @route GET /api/v1/brands
 // @access Public
-const getSubCategories = AsyncHandler(async (req, res, next) => {
-  await subCategoryService
+const getBrands = AsyncHandler(async (req, res, next) => {
+  await brandService
     .findAll(req)
     .then((result) =>
       responseWrapper(
         res,
         responseTypes.SUCCESS,
-        "Subcategory list fetched successfully",
+        "Brands list fetched successfully",
         result,
       ),
     )
@@ -53,18 +49,18 @@ const getSubCategories = AsyncHandler(async (req, res, next) => {
     });
 });
 
-// @desc Get a specific subCategory
-// @route GET /api/v1/subcategories/:id
+// @desc Get a specific brand
+// @route GET /api/v1/brands/:id
 // @access Public
-const getSubCategory = AsyncHandler(async (req, res, next) => {
+const getBrand = AsyncHandler(async (req, res, next) => {
   const { id } = req.params;
-  await subCategoryService
+  await brandService
     .findById(id)
     .then((result) =>
       responseWrapper(
         res,
         responseTypes.SUCCESS,
-        "Subcategory fetched successfully",
+        "Brand fetched successfully",
         result,
       ),
     )
@@ -73,23 +69,22 @@ const getSubCategory = AsyncHandler(async (req, res, next) => {
       const message =
         statusCode === 404 ? err.message : responseTypes.SERVER_ERROR.message;
       return next(new ApiError(message, statusCode));
-      // return responseWrapper(res, type, message);
     });
 });
 
-// @desc Update a specific subCategory
-// @route PUT /api/v1/subcategories/:id
+// @desc Update a specific brand
+// @route PUT /api/v1/brands/:id
 // @access Private
-const updateSubCategory = AsyncHandler(async (req, res, next) => {
+const updateBrand = AsyncHandler(async (req, res, next) => {
   const { id } = req.params;
   const { name } = req.body;
-  await subCategoryService
-    .updateSubCategory(id, name)
+  await brandService
+    .updateBrand(id, name)
     .then((result) =>
       responseWrapper(
         res,
         responseTypes.SUCCESS,
-        "Subcategory updated successfully",
+        "Brand updated successfully",
         result,
       ),
     )
@@ -101,18 +96,18 @@ const updateSubCategory = AsyncHandler(async (req, res, next) => {
     });
 });
 
-// @desc Delete a specific subCategory
-// @route PUT /api/v1/subcategories/:id
+// @desc Delete a specific brand
+// @route PUT /api/v1/brands/:id
 // @access Private
-const deleteSubCategory = AsyncHandler(async (req, res, next) => {
+const deleteBrand = AsyncHandler(async (req, res, next) => {
   const { id } = req.params;
-  await subCategoryService
-    .deleteSubCategory(id)
+  await brandService
+    .deleteBrand(id)
     .then((result) =>
       responseWrapper(
         res,
         responseTypes.SUCCESS,
-        "Subcategory deleted successfully",
+        "Brand deleted successfully",
         result,
       ),
     )
@@ -125,9 +120,9 @@ const deleteSubCategory = AsyncHandler(async (req, res, next) => {
 });
 
 module.exports = {
-  createSubCategory,
-  getSubCategories,
-  getSubCategory,
-  updateSubCategory,
-  deleteSubCategory,
+  createBrand,
+  getBrands,
+  getBrand,
+  updateBrand,
+  deleteBrand,
 };

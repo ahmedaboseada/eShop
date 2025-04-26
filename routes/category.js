@@ -15,6 +15,7 @@ const {
   updateCategory,
   deleteCategory,
 } = require("../Controllers/categoryController");
+const subCategoriesRoute = require("./subCategory");
 
 router
   .route("/")
@@ -25,5 +26,7 @@ router
   .get(getCategoryByIdSchema, validate, getCategory)
   .put(updateCategorySchema, validate, updateCategory)
   .delete(deleteCategorySchema, validate, deleteCategory);
+
+router.use("/:categoryId/subcategories", subCategoriesRoute);
 
 module.exports = router;

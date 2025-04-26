@@ -1,5 +1,6 @@
 const slugify = require("slugify");
 const SubCategory = require("../models/subCategory");
+const Category = require("../models/Category");
 
 class SubCategoryService {
   async createSubCategory(name, categoryId) {
@@ -9,6 +10,12 @@ class SubCategoryService {
     if (existingSubCategory) {
       const error = new Error("SubCategory already exists");
       error.code = 400;
+      throw error;
+    }
+    const existingCategory = await Category.findById(categoryId);
+    if (!existingCategory) {
+      const error = new Error("Category not found");
+      error.code = 404;
       throw error;
     }
     const newSubCategory = await SubCategory.create({
@@ -24,7 +31,19 @@ class SubCategoryService {
     const page = req.query.page * 1 || 1;
     const limit = req.query.limit * 1 || 5;
     const skip = (page - 1) * limit;
-    const subCategories = await SubCategory.find().skip(skip).limit(limit);
+
+    let filterObj = {};
+    if (req.params.categoryId) {
+      filterObj.category = req.params.categoryId;
+    }
+
+    const subCategories = await SubCategory.find(filterObj)
+      .skip(skip)
+      .limit(limit);
+    // .populate({
+    //   path: "category",
+    //   select: "name -_id",
+    // });
     if (subCategories)
       return { results: subCategories.length, page, data: subCategories };
     const error = new Error("No data found");
