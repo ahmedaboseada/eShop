@@ -13,3 +13,6 @@ client/dist
 .vercel
 _origin_main
 .DS_Store
+
+.vercel
+.env*

@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>eShop — Design Prototype</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #14201b;
+      --forest: #1b3a2f;
+      --sand: #e8e2d6;
+      --brass: #c4a574;
+      --bg: #f3efe7;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "DM Sans", sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid rgba(20,32,27,.08);
+      position: sticky;
+      top: 0;
+      background: rgba(243,239,231,.9);
+      backdrop-filter: blur(8px);
+    }
+    .brand { font-family: "Fraunces", serif; font-size: 1.5rem; font-weight: 700; }
+    nav { display: flex; gap: 1rem; }
+    nav a { color: var(--forest); text-decoration: none; }
+    .screen {
+      display: none;
+      min-height: calc(100vh - 64px);
+    }
+    .screen.active { display: block; }
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      width: min(1100px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 2rem 0 3rem;
+      align-items: end;
+      min-height: calc(100vh - 64px);
+    }
+    .hero h1 {
+      font-family: "Fraunces", serif;
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      line-height: .95;
+      margin: 0 0 1rem;
+    }
+    .hero p { max-width: 34ch; color: rgba(20,32,27,.75); }
+    .hero img {
+      width: 100%;
+      height: min(70vh, 620px);
+      object-fit: cover;
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 1rem;
+      margin-right: .5rem;
+      padding: .8rem 1.1rem;
+      background: var(--forest);
+      color: var(--sand);
+      text-decoration: none;
+      border: 0;
+      cursor: pointer;
+    }
+    .btn.ghost {
+      background: transparent;
+      color: var(--forest);
+      border: 1px solid rgba(27,58,47,.35);
+    }
+    .panel {
+      width: min(1100px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 2rem 0 3rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+    .card img {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      background: #d9d3c7;
+    }
+    .card h3 { font-family: "Fraunces", serif; margin: .6rem 0 .2rem; }
+    .meta { color: var(--brass); font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; }
+    .form {
+      max-width: 420px;
+      display: grid;
+      gap: .8rem;
+    }
+    .form input, .form textarea {
+      width: 100%;
+      padding: .75rem;
+      border: 1px solid rgba(20,32,27,.2);
+      background: rgba(255,255,255,.55);
+    }
+    .proto-bar {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      background: var(--forest);
+      color: var(--sand);
+      padding: .75rem 1rem;
+      display: flex;
+      gap: .5rem;
+      flex-wrap: wrap;
+      max-width: min(520px, calc(100% - 2rem));
+      z-index: 20;
+    }
+    .proto-bar button {
+      background: transparent;
+      border: 1px solid rgba(232,226,214,.35);
+      color: var(--sand);
+      padding: .35rem .55rem;
+      cursor: pointer;
+    }
+    @media (max-width: 800px) {
+      .hero, .grid { grid-template-columns: 1fr; }
+      .hero img { height: 280px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">eShop</div>
+    <nav>
+      <a href="#" data-go="home">Home</a>
+      <a href="#" data-go="shop">Shop</a>
+      <a href="#" data-go="cart">Cart</a>
+      <a href="#" data-go="signin">Sign in</a>
+    </nav>
+  </header>
+
+  <section id="home" class="screen active">
+    <div class="hero">
+      <div>
+        <h1>eShop</h1>
+        <p>Objects worth keeping — a focused storefront for thoughtfully made goods.</p>
+        <button class="btn" data-go="shop">Browse the shop</button>
+        <button class="btn ghost" data-go="signin">Sign in</button>
+      </div>
+      <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200" alt="" />
+    </div>
+  </section>
+
+  <section id="shop" class="screen">
+    <div class="panel">
+      <h2 style="font-family:Fraunces,serif">Shop</h2>
+      <div class="grid">
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600" alt="" />
+          <div class="meta">Electronics</div>
+          <h3>Wireless Headphones</h3>
+          <div>$199.99</div>
+          <button class="btn" data-go="product">View</button>
+        </article>
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600" alt="" />
+          <div class="meta">Fashion</div>
+          <h3>Leather Weekender</h3>
+          <div>$189.00</div>
+          <button class="btn" data-go="product">View</button>
+        </article>
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600" alt="" />
+          <div class="meta">Home</div>
+          <h3>Pour-Over Set</h3>
+          <div>$68.00</div>
+          <button class="btn" data-go="product">View</button>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="product" class="screen">
+    <div class="panel" style="display:grid;grid-template-columns:1.1fr .9fr;gap:2rem">
+      <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=900" alt="" style="width:100%;min-height:420px;object-fit:cover" />
+      <div>
+        <div class="meta">Electronics</div>
+        <h2 style="font-family:Fraunces,serif">Wireless Noise Cancelling Headphones</h2>
+        <p>Premium over-ear headphones with 30-hour battery life.</p>
+        <strong>$199.99</strong>
+        <div><button class="btn" data-go="cart">Add to cart</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cart" class="screen">
+    <div class="panel">
+      <h2 style="font-family:Fraunces,serif">Your cart</h2>
+      <p>1 × Wireless Headphones — $199.99</p>
+      <button class="btn" data-go="checkout">Checkout</button>
+    </div>
+  </section>
+
+  <section id="checkout" class="screen">
+    <div class="panel">
+      <h2 style="font-family:Fraunces,serif">Checkout</h2>
+      <form class="form" onsubmit="event.preventDefault(); go('orders')">
+        <label>Shipping address<textarea rows="3" required>12 Nile St, Alexandria</textarea></label>
+        <button class="btn" type="submit">Place order</button>
+      </form>
+    </div>
+  </section>
+
+  <section id="orders" class="screen">
+    <div class="panel">
+      <h2 style="font-family:Fraunces,serif">Order confirmed</h2>
+      <p>Status: pending · Total $199.99</p>
+      <button class="btn ghost" data-go="shop">Keep shopping</button>
+    </div>
+  </section>
+
+  <section id="signin" class="screen">
+    <div class="panel">
+      <h2 style="font-family:Fraunces,serif">Sign in</h2>
+      <form class="form" onsubmit="event.preventDefault(); go('shop')">
+        <label>Email<input type="email" value="demo@eshop.dev" /></label>
+        <label>Password<input type="password" value="Demo123!" /></label>
+        <button class="btn" type="submit">Sign in</button>
+      </form>
+    </div>
+  </section>
+
+  <div class="proto-bar" aria-label="Prototype navigation">
+    <span>Prototype</span>
+    <button data-go="home">Home</button>
+    <button data-go="shop">Shop</button>
+    <button data-go="product">Product</button>
+    <button data-go="cart">Cart</button>
+    <button data-go="checkout">Checkout</button>
+    <button data-go="orders">Orders</button>
+    <button data-go="signin">Sign in</button>
+  </div>
+
+  <script>
+    function go(id) {
+      document.querySelectorAll('.screen').forEach((el) => el.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    document.querySelectorAll('[data-go]').forEach((el) => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        go(el.getAttribute('data-go'));
+      });
+    });
+  </script>
+</body>
+</html>

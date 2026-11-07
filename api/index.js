@@ -1,4 +1,3 @@
-require('dotenv').config();
 const app = require('../server/src/app');
 const connectDB = require('../server/src/config/db');
 
@@ -7,6 +6,7 @@ let ready;
 async function ensureDb() {
   if (!ready) {
     ready = connectDB().catch((err) => {
+      console.error('DB connect failed:', err.message);
       ready = null;
       throw err;
     });
@@ -19,6 +19,12 @@ module.exports = async (req, res) => {
     await ensureDb();
     return app(req, res);
   } catch (error) {
-    res.status(500).json({ success: false, message: 'Database connection failed' });
+    console.error('API handler error:', error);
+    if (!res.headersSent) {
+      res.status(500).json({
+        success: false,
+        message: error.message || 'Database connection failed',
+      });
+    }
   }
 };
