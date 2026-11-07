@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "module": "ESNext",
+    "target": "ESNext",
+    "moduleResolution": "bundler",
+    "checkJs": false,
+    "allowJs": true,
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "baseUrl": "."
+  },
+  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", "dist", "build", "coverage"]
+}

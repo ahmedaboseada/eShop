@@ -1,0 +1,40 @@
+@base = http://127.0.0.1:5000
+@token = {{signin.response.body.data.accessToken}}
+
+### Health
+GET {{base}}/api/health
+
+### Sign up
+POST {{base}}/api/auth/signup
+Content-Type: application/json
+
+{
+  "firstName": "Test",
+  "lastName": "User",
+  "email": "test@eshop.dev",
+  "password": "Test123!"
+}
+
+### Sign in
+# @name signin
+POST {{base}}/api/auth/signin
+Content-Type: application/json
+
+{
+  "email": "demo@eshop.dev",
+  "password": "Demo123!"
+}
+
+### Products
+GET {{base}}/api/products
+
+### Categories
+GET {{base}}/api/categories
+
+### Me
+GET {{base}}/api/auth/me
+Authorization: Bearer {{token}}
+
+### Cart
+GET {{base}}/api/cart
+Authorization: Bearer {{token}}
