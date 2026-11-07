@@ -68,16 +68,21 @@ npm run dev
 
 ## Deploy (Vercel + GitHub)
 
-1. Push this repo to GitHub.
-2. Import the repo in Vercel.
-3. Set environment variables:
-   - `MONGODB_URI` (Atlas recommended)
-   - `JWT_SECRET`
-   - `JWT_REFRESH_TOKEN_SECRET`
-   - `CLIENT_URL` (your Vercel URL)
-   - `NODE_ENV=production`
-4. Deploy. The SPA builds from `client/`, API routes rewrite to `/api`.
+Production: https://eshop-one-kappa.vercel.app  
+GitHub branch: `cursor/initial-express-backend` (linked Vercel project `eshop`)
 
-## Figma
+Environment variables on Vercel:
+- `MONGODB_URI`
+- `JWT_SECRET`
+- `JWT_REFRESH_TOKEN_SECRET`
+- `CLIENT_URL`
+- `NODE_ENV=production`
 
-Design file and prototype are linked from the project README updates after generation.
+## Design / prototype
+
+Interactive HTML prototype (home → shop → product → cart → checkout → orders):
+
+- Open locally: `design/eshop-prototype.html`
+- Matches the live storefront visual language (Fraunces + DM Sans, forest/sand palette)
+
+Figma write access on this account is currently **View** seat, so a native Figma file could not be auto-created. Import the HTML prototype into Figma (or share a blank Design file URL) to sync editable frames.
